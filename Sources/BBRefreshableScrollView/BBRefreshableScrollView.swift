@@ -28,11 +28,13 @@ public struct BBRefreshableScrollView<Content: View>: View {
 
     private let onRefresh: (@escaping () -> Void) -> Void
     private let content: Content
-    private let offset: CGFloat
+    private let color: UIColor
+    private let offset: CGFloat    
 
     @State private var state = BBRefreshState.waiting
 
-    public init(offset: CGFloat = 50, onRefresh: @escaping (@escaping () -> Void) -> Void, @ViewBuilder content: () -> Content) {
+    public init(color: UIColor = .white, offset: CGFloat = 50, onRefresh: @escaping (@escaping () -> Void) -> Void, @ViewBuilder content: () -> Content) {
+        self.color    = color
         self.offset    = offset
         self.onRefresh = onRefresh
         self.content   = content()
@@ -51,7 +53,7 @@ public struct BBRefreshableScrollView<Content: View>: View {
                     Rectangle()
                         .foregroundColor(.clear)
                         .frame(height: offset)
-                    BBActivityIndicatorView(isAnimating: state == .loading, hidesWhenStopped: state != .primed)
+                    BBActivityIndicatorView(color: color, isAnimating: state == .loading, hidesWhenStopped: state != .primed)
                 }.offset(y: (state == .loading) ? 0 : -offset)
             }
         }
