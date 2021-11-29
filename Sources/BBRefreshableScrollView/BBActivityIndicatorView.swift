@@ -26,12 +26,14 @@ import SwiftUI
 
 struct BBActivityIndicatorView: UIViewRepresentable {
 
+    public var color = UIColor.white
     public var isAnimating = true
     public var hidesWhenStopped = true
     public var style = UIActivityIndicatorView.Style.large
 
     func makeUIView(context: Context) -> UIActivityIndicatorView {
-        UIActivityIndicatorView(style: style)
+        let view = UIActivityIndicatorView(style: style)
+        view.color = color
     }
 
     func updateUIView(_ uiView: UIActivityIndicatorView, context: Context) {
